@@ -1,11 +1,21 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 
 namespace FaroShuffle.Extensions
 {
     public static class Extensions
     {
+
+        public static IEnumerable<T> LogQuery<T> (this IEnumerable<T> sequence, string tag)
+        {
+            using (var writer = File.AppendText("debug.log")){
+                writer.WriteLine($"Executing Query {tag}");
+            }
+
+            return sequence;
+        }
 
         public static IEnumerable<T> InterleaveSequenceWith<T>(this IEnumerable<T> first, IEnumerable<T> second)
         {
@@ -34,6 +44,13 @@ namespace FaroShuffle.Extensions
 
             return true;
         }
+
+
+
+
+
+
+
 
     }
 }
